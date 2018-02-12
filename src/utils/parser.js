@@ -64,7 +64,7 @@ const createFile = (data, type = 'json') => {
 		}
 		console.log(fileName);
 		// fileName is a string that contains the path and filename created in the save file dialog.  
-		fs.writeFile(fileName, data, (err) => {
+		fs.writeFile(fileName, JSON.stringify(data), (err) => {
 			if (err) {
 				return new Error('Error al escribir el fichero');
 			}

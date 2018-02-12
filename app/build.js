@@ -15472,7 +15472,7 @@ var createFile = function createFile(data) {
 		}
 		console.log(fileName);
 		// fileName is a string that contains the path and filename created in the save file dialog.  
-		_fs2.default.writeFile(fileName, data, function (err) {
+		_fs2.default.writeFile(fileName, JSON.stringify(data), function (err) {
 			if (err) {
 				return new Error('Error al escribir el fichero');
 			}
