@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 import FileArea from './FileArea';
 import FormArea from './FormArea';
+import ButtonArea from './ButtonArea';
 import './main.scss';
+import Footer from './Footer';
 
 class AppContainer extends Component{
 	render(){
@@ -10,6 +12,8 @@ class AppContainer extends Component{
 			<div>
 				<FileArea />
 				<FormArea />
+				<ButtonArea />
+				<Footer />
 			</div>
 		)
 	}

@@ -1,4 +1,4 @@
-import { SUCCESS_PARSING, ERROR_PARSING, START_PARSING, TOGGLE_PROP } from '../types/parser.types.js';
+import { SUCCESS_PARSING, ADD_FILE, ERROR_PARSING, START_PARSING, TOGGLE_PROP } from '../types/parser.types.js';
 
 const initialState = {
 	parsing: false,
@@ -10,7 +10,8 @@ const initialState = {
 		totalDistance: true,
 		path: false
 	},
-	error: false
+	error: false,
+	file: null
 };
 
 export const parserReducer = (state = initialState, action) => {
@@ -33,6 +34,11 @@ export const parserReducer = (state = initialState, action) => {
 				...state,
 				parsing: false,
 				error: true
+			};
+		case ADD_FILE:
+			return {
+				...state,
+				file: action.payload
 			};
 		default:
 			return state;

@@ -1,14 +1,14 @@
-import { START_PARSING, SUCCESS_PARSING, ERROR_PARSING, TOGGLE_PROP } from '../types/parser.types';
+import { START_PARSING, SUCCESS_PARSING, ERROR_PARSING, TOGGLE_PROP, ADD_FILE } from '../types/parser.types';
 import { fileParser } from '../utils/parser';
 
-export const startParsing = (files) => (dispatch, getState) => {
-	const { props } = getState().parser;
+export const startParsing = (type) => (dispatch, getState) => {
+	const { props, file } = getState().parser;
 	try{
 		dispatch({
 			type: START_PARSING
 		});
 
-		fileParser(files, props)
+		fileParser(file, props, type)
 			.then(res => {
 				dispatch({
 					type: SUCCESS_PARSING
@@ -32,3 +32,7 @@ export const toggle = (prop) => ({
 	payload: prop
 });
 
+export const addFile = (file) => ({
+	type: ADD_FILE,
+	payload: file
+});

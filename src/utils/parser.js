@@ -4,8 +4,7 @@ import fs from 'fs';
 
 const { dialog } = require('electron').remote;
 
-export const fileParser = (files, props) => new Promise((resolve, reject) => {
-	const file = files[0];
+export const fileParser = (file, props, type = 'json') => new Promise((resolve, reject) => {
 	let data = {};
 
 	if (file.type !== 'text/plain') return reject('Not file type');
@@ -44,8 +43,7 @@ export const fileParser = (files, props) => new Promise((resolve, reject) => {
 	};
 
 	reader.onloadend = function () {
-		const type = 'json';
-		createFile(data, type);
+		createFile(data, type, file.name.split('.txt')[0]);
 		resolve();
 	};
 
@@ -55,15 +53,20 @@ export const fileParser = (files, props) => new Promise((resolve, reject) => {
 
 
 
-const createFile = (data, type = 'json') => {
-
-	dialog.showSaveDialog({ defaultPath: `~/log_${new Date().getTime()}.json`},(fileName) => {
+const createFile = (data, type = 'json', name) => {
+	let content;
+	name = name? `${name}.${type}` : `~/log_${new Date().getTime()}.${type}`;
+	
+	dialog.showSaveDialog({ defaultPath: name},(fileName) => {
 		if (fileName === undefined) {
 			console.log("You didn't save the file");
 			return;
 		}
 		console.log(fileName);
 		// fileName is a string that contains the path and filename created in the save file dialog.  
+		
+		content = (type.toLowerCase() ==='csv')?createCSV(data):JSON.stringify(data);
+
 		fs.writeFile(fileName, JSON.stringify(data), (err) => {
 			if (err) {
 				return new Error('Error al escribir el fichero');
@@ -71,4 +74,8 @@ const createFile = (data, type = 'json') => {
 			alert("Fichero almacenado correctamente");
 		});
 	}); 
+};
+
+const createCSV = (data) => {
+	return '';
 };

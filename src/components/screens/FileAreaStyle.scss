@@ -7,6 +7,8 @@
     margin: 0 auto;
     padding: 26px 20px 30px;
     transition: 0.2s;
+		white-space: nowrap;
+		overflow: hidden;
     &.is-active {
         background-color: rgba(255, 255, 255, 0.05);
     }
