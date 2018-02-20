@@ -11,7 +11,7 @@ const ipcMain = electron.ipcMain;
 let mainWindow;
 
 function createWindow() {
-	mainWindow = new BrowserWindow({ width: 550, height: 360, resizable: false, icon: path.join(__dirname, '/app/icons/64x64.png')});
+	mainWindow = new BrowserWindow({ width: 550, height: (process.platform === 'darwin') ? 360 : 380, resizable: false, icon: path.join(__dirname, '/app/icons/64x64.png')});
     //mainWindow.loadURL('http://localhost:3007');
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
